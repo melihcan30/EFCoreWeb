@@ -35,7 +35,7 @@ namespace EFCoreWeb.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<List<SuperHero>>> GetSingleHeroe(int id)
+        public async Task<ActionResult<SuperHero>> GetSingleHeroe(int id)
         {
             var hero = superHeroes.Find(x => x.Id == id);
             if (hero == null)
@@ -43,6 +43,13 @@ namespace EFCoreWeb.Controllers
                 return NotFound("No superhero found");
             }
             return Ok(hero);
+        }
+
+        [HttpPost]
+        public async Task<ActionResult<List<SuperHero>>> AddHero(SuperHero hero)
+        {
+            superHeroes.Add(hero);
+            return Ok(superHeroes);
         }
     }
 }
