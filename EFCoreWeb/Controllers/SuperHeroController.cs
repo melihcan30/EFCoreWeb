@@ -51,5 +51,22 @@ namespace EFCoreWeb.Controllers
             superHeroes.Add(hero);
             return Ok(superHeroes);
         }
+
+        [HttpPut("{id}")]
+        public async Task<ActionResult<List<SuperHero>>> UpdateHero(int id, SuperHero request)
+        {
+            var hero = superHeroes.Find(x => x.Id == id);
+            if (hero == null)
+            {
+                return NotFound("No superhero found");
+            }
+
+            hero.Name = request.Name;
+            hero.FirstName = request.FirstName;
+            hero.LastName = request.LastName;
+            hero.Place = request.Place;
+
+            return Ok(superHeroes);
+        }
     }
 }
