@@ -43,7 +43,7 @@ namespace EFCoreWeb.Controllers
         public async Task<ActionResult<List<SuperHero>>> UpdateHero(int id, SuperHero request)
         {
             var hero = superHeroes.Find(x => x.Id == id);
-            if (hero == null)
+            if (hero is null)
             {
                 return NotFound("No superhero found");
             }
@@ -59,15 +59,11 @@ namespace EFCoreWeb.Controllers
         [HttpDelete("{id}")]
         public async Task<ActionResult<List<SuperHero>>> DeleteHero(int id)
         {
-            var hero = superHeroes.Find(x => x.Id == id);
-            if (hero == null)
-            {
-                return NotFound("No superhero found");
-            }
+            var result = _superHeroService.DeleteHero(id);
+            if (result == null)
+                return NotFound("Hero not found.");
 
-            superHeroes.Remove(hero);
-
-            return Ok(superHeroes);
+            return Ok(result);
         }
     }
 }

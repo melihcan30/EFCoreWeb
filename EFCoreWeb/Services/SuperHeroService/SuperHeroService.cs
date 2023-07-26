@@ -29,7 +29,15 @@
 
         public List<SuperHero> DeleteHero(int id)
         {
-            throw new NotImplementedException();
+            var hero = superHeroes.Find(x => x.Id == id);
+            if (hero == null)
+            {
+                return null;
+            }
+
+            superHeroes.Remove(hero);
+
+            return superHeroes;
         }
 
         public List<SuperHero> GetAllHeroes()
@@ -50,7 +58,10 @@
                 return null;
             }
 
-            superHeroes.Remove(hero);
+            hero.Name = request.Name;
+            hero.FirstName = request.FirstName;
+            hero.LastName = request.LastName;
+            hero.Place = request.Place;
 
             return superHeroes;
         }
